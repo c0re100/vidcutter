@@ -1078,8 +1078,8 @@ class VideoCutter(QWidget):
         suggestedFilename, source_ext = '', ''
         if self.currentMedia is not None:
             source_file, source_ext = os.path.splitext(self.currentMedia)
-            suggestedFilename = '%s_EDIT%s' % (source_file, source_ext)
-            filefilter = 'Video files (*%s)' % source_ext
+            suggestedFilename = '%s_EDIT%s' % (source_file, ".mp4")
+            filefilter = 'Video files (*%s)' % ".mp4"
         else:
             firstitem = self.clipTimes[0]
             if len(firstitem[3]):
@@ -1094,12 +1094,12 @@ class VideoCutter(QWidget):
             if not len(self.finalFilename.strip()):
                 return False
             file, ext = os.path.splitext(self.finalFilename)
-            if len(ext) == 0 and len(source_ext):
-                self.finalFilename += source_ext
+            if len(ext) == 0:
+                self.finalFilename += ".mp4"
             self.lastFolder = QFileInfo(self.finalFilename).absolutePath()
             qApp.setOverrideCursor(Qt.WaitCursor)
             self.saveAction.setDisabled(True)
-            steps = clips + (1 if clips == 1 else 2)
+            steps = clips + 1
             self.showProgress(steps)
             for clip in self.clipTimes:
                 index = self.clipTimes.index(clip)
@@ -1119,27 +1119,7 @@ class VideoCutter(QWidget):
                         self.videoService.cut(source='%s%s' % (source_file, source_ext), output=filename,
                                               frametime=clip[0].toString(self.timeformat), duration=duration,
                                               allstreams=False)
-            if len(filelist) > 1:
-                self.progress.updateProgress(self.progress.value() + 1, 'Joining media clips')
-                rc = False
-                if self.videoService.isMPEGcodec(filelist[0]):
-                    self.logger.info('file is MPEG based thus join via mpegts file protocol method')
-                    rc = self.videoService.mpegtsJoin(filelist, self.finalFilename)
-                    if not rc:
-                        self.logger.info('mpegts based join failed, will retry using standard concat')
-                if not rc or QFile(self.finalFilename).size() < 1000:
-                    rc = self.videoService.join(filelist, self.finalFilename, True)
-                if not rc or QFile(self.finalFilename).size() < 1000:
-                    self.logger.info('join() resulted in 0 length file, trying again without all stream mapping')
-                    self.videoService.join(filelist, self.finalFilename, False)
-                if not self.keepClips:
-                    for f in filelist:
-                        clip = self.clipTimes[filelist.index(f)]
-                        if not len(clip[3]) and os.path.isfile(f):
-                            QFile.remove(f)
-            else:
-                QFile.remove(self.finalFilename)
-                QFile.rename(filename, self.finalFilename)
+
             self.progress.updateProgress(self.progress.value() + 1, 'Complete')
             QTimer.singleShot(1000, self.progress.close)
             if sys.platform.startswith('linux') and self.mediaAvailable:
@@ -1147,8 +1127,6 @@ class VideoCutter(QWidget):
                     float(self.seekSlider.value() / self.seekSlider.maximum())))
             qApp.restoreOverrideCursor()
             self.saveAction.setEnabled(True)
-            notify = JobCompleteNotification(self)
-            notify.exec_()
             return True
         return False
 
