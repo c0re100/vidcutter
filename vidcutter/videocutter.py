@@ -1085,7 +1085,6 @@ class VideoCutter(QWidget):
             if len(firstitem[3]):
                 _, suggestedFilename = os.path.splitext(firstitem[3])
             filefilter = self.mediaFilters('video')
-        source_ext = '.mp4'
         if clips > 0:
             self.finalFilename, _ = QFileDialog.getSaveFileName(parent=self, caption='Save media',
                                                                 directory=suggestedFilename, filter=filefilter,
@@ -1110,7 +1109,7 @@ class VideoCutter(QWidget):
                     self.progress.updateProgress(self.progress.value() + 1, 'Cutting media clips [%s / %s]'
                                                  % ('{0:0>2}'.format(index + 1), '{0:0>2}'.format(clips)))
                     duration = self.delta2QTime(clip[0].msecsTo(clip[1])).toString(self.timeformat)
-                    filename = '%s_%s%s' % (file, '{0:0>2}'.format(index), source_ext)
+                    filename = '%s_%s%s' % (file, '{0:0>2}'.format(index), '.mp4')
                     filelist.append(filename)
                     self.videoService.cut(source='%s%s' % (source_file, source_ext), output=filename,
                                           frametime=clip[0].toString(self.timeformat), duration=duration,
