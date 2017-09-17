@@ -217,10 +217,10 @@ class VideoService(QObject):
     def cut(self, source: str, output: str, frametime: str, duration: str, allstreams: bool=True) -> bool:
         self.checkDiskSpace(output)
         if allstreams:
-            args = '-ss {0} -i "{1}" -t {2} -vcodec copy -acodec copy -scodec copy -avoid_negative_ts 1 -copyinkf ' + \
+            args = '-ss {0} -i "{1}" -t {2} -vcodec libx264 -an -sn -crf 22 -vf "scale=1280:720,format=yuv420p"' + \
                    '-map 0 -v 16 -y "{3}"'
         else:
-            args = '-ss {0} -i "{1}" -t {2} -vcodec copy -acodec copy -scodec copy -avoid_negative_ts 1 -copyinkf ' + \
+            args = '-ss {0} -i "{1}" -t {2} -vcodec libx264 -an -sn -crf 22 -vf "scale=1280:720,format=yuv420p"' + \
                    '-v 16 -y "{3}"'
         return self.cmdExec(self.backend, args.format(frametime, source, duration, QDir.fromNativeSeparators(output)))
 
