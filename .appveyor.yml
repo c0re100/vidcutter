@@ -53,7 +53,7 @@ install:
   - C:\Python36-x64\python.exe setup.py build_ext -i
   - echo Downloading latest libmpv 64-bit build...
   # - curl -L -fsS -o _build\pyinstaller\temp\mpv-dev.7z https://mpv.srsfckn.biz/mpv-dev-20170718.7z
-  - curl -L -fsS -o _build\pyinstaller\temp\mpv-dev.7z https://downloads.sourceforge.net/project/mpv-player-windows/libmpv/mpv-dev-x86_64-20170722-git-2378acc.7z
+  - curl -L -fsS -o _build\pyinstaller\temp\mpv-dev.7z https://downloads.sourceforge.net/project/mpv-player-windows/libmpv/mpv-dev-x86_64-20170916-git-2f41b83.7z
   - cd _build/pyinstaller/temp
   - 7z e mpv-dev.7z mpv-1.dll -o"..\libmpv\64\"
   - echo Copy DLLs from Windows for ANGLE Direct3D engine support..
@@ -109,7 +109,7 @@ artifacts:
 # - 7z e mpv-dev.7z 32/mpv-1.dll -o"_build\pyinstaller\libmpv\32"
 # - mkdir "_build\pyinstaller\libmpv\32"
 # - echo Downloading latest libmpv 32-bit build...
-# - curl -L -fsS -o _build\pyinstaller\temp\libmpv32.7z "https://downloads.sourceforge.net/project/mpv-player-windows/libmpv/mpv-dev-i686-20170715-git-18c74f7.7z"
+# - curl -L -fsS -o _build\pyinstaller\temp\libmpv32.7z "https://downloads.sourceforge.net/project/mpv-player-windows/libmpv/mpv-dev-i686-20170916-git-2f41b83.7z"
 # - 7z e "_build\pyinstaller\temp\libmpv32.7z" mpv-1.dll -o"_build\pyinstaller\temp"
 # - move "_build\pyinstaller\temp\mpv-1.dll" "_build\pyinstaller\libmpv\32"
 # - copy "C:\Windows\SysWOW64\d3dcompiler_43.dll" "_build\pyinstaller\libmpv\32"
