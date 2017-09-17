@@ -69,13 +69,13 @@ class About(QDialog):
                         <span style="font-size:58px;">V</span>ID<span style="font-size:58px;">C</span>UTTER
                     </div>
                     &nbsp;&nbsp;
-                    <div style="padding:0; margin:0; margin-left:35px;">
+                    <div style="padding:0; margin:0; margin-left:0px;">
                         <table border="0" cellpadding="2" cellspacing="0">
                         <tr valign="bottom">
                             <td style="text-align:right;font-size:10pt;font-weight:500;color:%s;">version:</td>
                             <td>
                                 <span style="font-size:18px;font-weight:400;">%s</span>
-                                &nbsp;<span style="font-size:10pt;margin-left:5px;">(%s)</span>
+                                &nbsp;<span style="font-size:10pt;margin-left:5px;">(Special HD Ver.)</span><!--%s-->
                             </td>
                         </tr>
                         <tr valign="bottom">
@@ -172,12 +172,12 @@ class AboutTab(BaseTab):
                 <b>SIP:</b> %s
             </p> 
             <p style="font-size:13px;">
-                Copyright &copy; %s <a href="mailto:pete@ozmartians.com">Pete Alexandrou</a>
+                Copyright &copy; %s <a href="mailto:pete@ozmartians.com">Pete Alexandrou</a> <a href="https://github.com/Tydus">Tydus</a>
                 <br/>
-                Website: <a href="http://vidcutter.ozmartians.com">http://vidcutter.ozmartians.com</a>
+                Github: <a href="https://github.com/Tydus/vidcutter">https://github.com/Tydus/vidcutter</a>
             </p>
             <p style="font-size:13px;">
-                Found a bug? You can <a href="https://github.com/ozmartian/vidcutter/issues">REPORT IT HERE</a>.
+                Found a bug? You can <a href="https://github.com/Tydus/vidcutter/issues">REPORT IT HERE</a>.
             </p>
             <p style="font-size:11px; margin-top:15px;">
                 This program is free software; you can redistribute it and/or
