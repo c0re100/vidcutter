@@ -1,4 +1,4 @@
-[![Latest Release](http://tvlinker.ozmartians.com/images/button-latest-release.png)](https://github.com/ozmartian/vidcutter/releases/latest)
+[![Latest Release](http://tvlinker.ozmartians.com/images/button-latest-release.png)](https://ci.appveyor.com/project/Tydus/vidcutter/build/artifacts)
  
 
 ![VidCutter](http://vidcutter.ozmartians.com/vidcutter-banner.png)
@@ -9,71 +9,14 @@
 [![Build Status](https://ci.appveyor.com/api/projects/status/p4ralebu096lkft1?svg=true)](https://ci.appveyor.com/project/Tydus/vidcutter)
 <!---[![Codacy Badge](https://api.codacy.com/project/badge/Grade/425a00c7c6af446ba87c6152567d9f7e)](https://www.codacy.com/app/ozmartian/vidcutter)--->
 
+# Special HD Version
+For making "gif" animations for Twitter, Telegram, etc.
 
-### Windows + macOS Users
+### Windows Users
 
-Native installers for Windows and macOS are available on the releases page with every new version, or just click the button below. 
-
-#### Chocolatey package
-
-VidCutter has finally been approved + published in the [Chocolatey](https://chocolatey.org) public repository (its a package manager like in Linux but
-for Windows).
-
-  To install VidCutter, run the following command from the command line or from PowerShell:
-  ```
-  C:\> choco install vidcutter
-  ```
-  To upgrade VidCutter, run the following command from the command line or from PowerShell:
-  ```
-  C:\> choco upgrade vidcutter
-  ```
-
-***
+Native installers for Windows is available on the <a href="https://ci.appveyor.com/project/Tydus/vidcutter/build/artifacts">Appveyor</a>.
 
 ### Linux Users
-
-#### Arch Linux
-
-Users can install directly from AUR, package is available in both stable and git-latest versions:
-
-    AUR: vidcutter, vidcutter-git
-
-#### Ubuntu/Mint/Debian and all other Ubuntu derivatives 
-
-Users can install the latest release via:
-
-    ppa:ozmartian/apps
-
-If you are new to PPAs then just issue the following commands in a terminal:
-
-    sudo add-apt-repository ppa:ozmartian/apps
-    sudo apt-get update
-    sudo apt-get install vidcutter
-
-#### Fedora
-
-Users can install via the RPM available on the releases page or via my custom copr repository:
-
-    suspiria/VidCutter
-    
-The commands for a Fedora install via this method are:
-
-    dnf copr enable suspiria/VidCutter
-    dnf install vidcutter
-
-#### openSUSE
-
-VidCutter is available via the Packman third-party repository. Instructions to enable it can be found here:
-
-   https://en.opensuse.org/Additional_package_repositories#Packman
-
-### AppImage
-
-An AppImage version is also available on the releases page to help all other Linux users.
-
-***
-
-### PyPi
 
 If you're familiar with Python and PyPi then you can always try that option too but avoid installing PyQt5 from through pip and instead run with your distributions own PyQt5 offering. PyQt5 is known as some of the following names under various distros: python-pyqt5, python3-pyqt5, python3-qt5 etc. Using your distro's version ensures a more seamless look & feel with the app integrating with your distro's look & feel + widget sets. Installing all via PyPi will still work, but won't look as nice..
 
@@ -109,7 +52,7 @@ NOTE: a Fedora25 RPM package is now included in release builds so use that. The 
 
 5. Download VidCutter3 source code to temp folder location and install via python setuptools as follows:
     ```
-    $ wget https://github.com/ozmartian/vidcutter/archive/master.tar.gz
+    $ wget https://github.com/Tydus/vidcutter/archive/master.tar.gz
     
     $ tar zxf master.tar.gz
     
