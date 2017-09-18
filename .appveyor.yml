@@ -7,7 +7,7 @@ branches:
   only:
   - master
 
-skip_non_tags: true
+skip_non_tags: false
 
 image: Visual Studio 2015
 
@@ -18,8 +18,6 @@ clone_depth: 1
 clone_folder: C:\projects\vidcutter
 
 environment:
-  APPVEYOR_RDP_PASSWORD:
-    secure: uzV46p3oDwpGYncy5y+ysw==
   APPVEYOR_SKIP_FINALIZE_ON_EXIT: false
   PYTHONUNBUFFERED: 1
   PYTHONHOME: C:\Python36-x64
