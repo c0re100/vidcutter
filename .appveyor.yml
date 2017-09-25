@@ -63,7 +63,7 @@ install:
   - call build.pyinstaller.win.bat 64
   - echo.
   - cd ..\InnoSetup\Output
-  - appveyor PushArtifact VidCutter-4.0.0-setup-win64.exe
+  - appveyor PushArtifact VidCutter-4.0.0-setup-win64.exe -FileName "VidCutter-4.0.0.$(appveyor_build_version)-win64.exe"
   - echo.
   - echo SUCCESS
   - appveyor exit
@@ -74,7 +74,7 @@ nuget:
 test: off
 
 artifacts:
- - path: C:\projects\vidcutter\_build\InnoSetup\Output\VidCutter-4.0.0-setup-win64.exe
+ - path: C:\projects\vidcutter\_build\InnoSetup\Output\VidCutter-4.0.0.$(appveyor_build_version)-win64.exe
    name: Windows Installers
    type: File
 
