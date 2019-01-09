@@ -272,7 +272,7 @@ def main():
         QApplication.setStyle('Fusion')
 
     app = QApplication(sys.argv)
-    app.setApplicationName('VidCutter Special HD Ver.')
+    app.setApplicationName('VidCutter Husky Ver.')
     app.setApplicationVersion(MainWindow.get_version())
     app.setOrganizationDomain('ozmartians.com')
     app.setQuitOnLastWindowClosed(True)
@@ -287,6 +287,7 @@ def main():
         else:
             os.execl(sys.executable, sys.executable, *sys.argv)
     sys.exit(exit_code)
+
 
 if __name__ == '__main__':
     main()

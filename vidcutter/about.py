@@ -75,7 +75,7 @@ class About(QDialog):
                             <td style="text-align:right;font-size:10pt;font-weight:500;color:%s;">version:</td>
                             <td>
                                 <span style="font-size:18px;font-weight:400;">%s</span>
-                                &nbsp;<span style="font-size:10pt;margin-left:5px;">(Special HD Ver.)</span><!--%s-->
+                                &nbsp;<span style="font-size:10pt;margin-left:5px;">(Husky Ver.)</span><!--%s-->
                             </td>
                         </tr>
                         <tr valign="bottom">

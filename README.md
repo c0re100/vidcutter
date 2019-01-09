@@ -9,7 +9,7 @@
 [![Build Status](https://ci.appveyor.com/api/projects/status/p4ralebu096lkft1?svg=true)](https://ci.appveyor.com/project/Tydus/vidcutter)
 <!---[![Codacy Badge](https://api.codacy.com/project/badge/Grade/425a00c7c6af446ba87c6152567d9f7e)](https://www.codacy.com/app/ozmartian/vidcutter)--->
 
-# Special HD Version
+# Husky Version
 For making "gif" animations for Twitter, Telegram, etc.
 
 ### Windows Users
