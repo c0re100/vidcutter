@@ -26,7 +26,9 @@ import logging
 import os
 import re
 import shlex
+import shutil
 import sys
+import time
 from distutils.spawn import find_executable
 from enum import Enum
 
@@ -48,11 +50,13 @@ class VideoService(QObject):
     utils = {
         'nt': {
             'ffmpeg': ['ffmpeg.exe'],
-            'mediainfo': ['MediaInfo.exe']
+            'mediainfo': ['MediaInfo.exe'],
+            'gifski': ['gifski.exe']
         },
         'posix': {
             'ffmpeg': ['ffmpeg', 'ffmpeg2.8', 'avconv'],
-            'mediainfo': ['mediainfo']
+            'mediainfo': ['mediainfo'],
+            'gifski': ['gifski']
         }
     }
 
@@ -69,7 +73,7 @@ class VideoService(QObject):
         super(VideoService, self).__init__(parent)
         self.parent = parent
         self.logger = logging.getLogger(__name__)
-        self.backend, self.mediainfo = VideoService.initBackends()
+        self.backend, self.mediainfo, self.gifski = VideoService.initBackends()
         if self.backend is not None:
             self.proc = VideoService.initProc()
             if hasattr(self.proc, 'errorOccurred'):
@@ -78,14 +82,16 @@ class VideoService(QObject):
 
     @staticmethod
     def initBackends() -> tuple:
-        backend, mediainfo = None, None
+        backend, mediainfo, gifski = None, None, None
         if VideoService.frozen:
             if sys.platform == 'win32':
                 return os.path.join(VideoService.getAppPath(), 'bin', 'ffmpeg.exe'), \
-                       os.path.join(VideoService.getAppPath(), 'bin', 'MediaInfo.exe')
+                       os.path.join(VideoService.getAppPath(), 'bin', 'MediaInfo.exe'), \
+                       os.path.join(VideoService.getAppPath(), 'bin', 'gifski.exe')
             else:
                 return os.path.join(VideoService.getAppPath(), 'bin', 'ffmpeg'), \
-                       os.path.join(VideoService.getAppPath(), 'bin', 'mediainfo')
+                       os.path.join(VideoService.getAppPath(), 'bin', 'mediainfo'), \
+                       os.path.join(VideoService.getAppPath(), 'bin', 'gifski')
         else:
             for exe in VideoService.utils[os.name]['ffmpeg']:
                 backend = find_executable(exe)
@@ -95,7 +101,11 @@ class VideoService(QObject):
                 mediainfo = find_executable(exe)
                 if mediainfo is not None:
                     break
-        return backend, mediainfo
+            for exe in VideoService.utils[os.name]['gifski']:
+                gifski = find_executable(exe)
+                if gifski is not None:
+                    break
+        return backend, mediainfo, gifski
 
     @staticmethod
     def initProc() -> QProcess:
@@ -118,13 +128,13 @@ class VideoService(QObject):
             self.spaceWarningDelivered = True
 
     @staticmethod
-    def capture(source: str, frametime: str, thumbsize: ThumbSize=ThumbSize.INDEX, external: bool=False) -> QPixmap:
+    def capture(source: str, frametime: str, thumbsize: ThumbSize = ThumbSize.INDEX, external: bool = False) -> QPixmap:
         capres = QPixmap()
         img = QTemporaryFile(os.path.join(QDir.tempPath(), 'XXXXXX.jpg'))
         if img.open():
             imagecap = img.fileName()
             size = thumbsize.value
-            backend, _ = VideoService.initBackends()
+            backend, _, _ = VideoService.initBackends()
             args = '-hide_banner -ss %s -i "%s" -vframes 1 -s %ix%i -v 16 -y "%s"' % (frametime, source, size.width(),
                                                                                       size.height(), imagecap)
             proc = VideoService.initProc()
@@ -214,7 +224,7 @@ class VideoService(QObject):
         acodec = re.search(r'Stream.*Audio:\s(\w+)', result).group(1)
         return vcodec, acodec
 
-    def cut(self, source: str, output: str, frametime: str, duration: str, allstreams: bool=True) -> bool:
+    def cut(self, source: str, output: str, frametime: str, duration: str, allstreams: bool = True) -> bool:
         self.checkDiskSpace(output)
         if allstreams:
             args = '-ss {0} -i "{1}" -t {2} -vcodec libx264 -an -sn -crf 18 -pix_fmt yuv420p ' + \
@@ -222,9 +232,24 @@ class VideoService(QObject):
         else:
             args = '-ss {0} -i "{1}" -t {2} -vcodec libx264 -an -sn -crf 18 -pix_fmt yuv420p ' + \
                    '-filter_complex "scale=iw*min(1\,min(1280/iw\,720/ih)):-2" -v 16 -y "{3}"'
+
+        timestamp = int(time.time())
+        file_path = QDir.fromNativeSeparators(output)
+        file_dir = file_path.replace(QFileInfo(output).fileName(), "")
+        png_frame = QFileInfo(output).fileName().replace(".mp4", "%3d.png")
+        png_dir = file_dir + 'tmp' + str(timestamp) + '/'
+        gif_dir = file_dir + QFileInfo(output).fileName().replace(".mp4", ".gif")
+        cut_arg = '-ss {0} -i "{1}" -t {2} -vf "fps=24,scale=640:-1" "{3}"'
+        merged_arg = '"{0}" --output "{1}"'
+        os.mkdir(png_dir)
+        self.cmdExec(self.backend,
+                     cut_arg.format(frametime, source, duration, png_dir + png_frame))
+        self.cmdExec(self.gifski,
+                     merged_arg.format(png_dir + '*.png', gif_dir))
+        shutil.rmtree(png_dir)
         return self.cmdExec(self.backend, args.format(frametime, source, duration, QDir.fromNativeSeparators(output)))
 
-    def join(self, inputs: list, output: str, allstreams: bool=True) -> bool:
+    def join(self, inputs: list, output: str, allstreams: bool = True) -> bool:
         self.checkDiskSpace(output)
         filelist = os.path.normpath(os.path.join(os.path.dirname(inputs[0]), '_vidcutter.list'))
         fobj = open(filelist, 'w')
@@ -298,12 +323,12 @@ class VideoService(QObject):
         result = self.cmdExec(self.backend, args, True)
         return re.search(r'ffmpeg\sversion\s([\S]+)\s', result).group(1)
 
-    def metadata(self, source: str, output: str='HTML') -> str:
+    def metadata(self, source: str, output: str = 'HTML') -> str:
         args = '--output=%s "%s"' % (output, source)
         result = self.cmdExec(self.mediainfo, args, True)
         return result.strip()
 
-    def cmdExec(self, cmd: str, args: str=None, output: bool=False):
+    def cmdExec(self, cmd: str, args: str = None, output: bool = False):
         if os.getenv('DEBUG', False):
             self.logger.info('"%s %s"' % (cmd, args if args is not None else ''))
         if self.proc.state() == QProcess.NotRunning:
