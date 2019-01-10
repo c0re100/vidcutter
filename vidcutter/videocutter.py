@@ -1078,7 +1078,7 @@ class VideoCutter(QWidget):
         suggestedFilename, source_ext = '', ''
         if self.currentMedia is not None:
             source_file, source_ext = os.path.splitext(self.currentMedia)
-            suggestedFilename = '%s_EDIT%s' % (source_file, ".mp4")
+            suggestedFilename = '%s%s' % (source_file, ".mp4")
             filefilter = 'Video files (*%s)' % ".mp4"
         else:
             firstitem = self.clipTimes[0]
