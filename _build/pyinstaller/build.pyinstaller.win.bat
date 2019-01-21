@@ -11,8 +11,8 @@ if ["%ARCH%"]==["64"] (
     SET BINARCH=x64
     SET FFMPEG_URL=https://ffmpeg.zeranoe.com/builds/win64/static/ffmpeg-4.1-win64-static.zip
     SET FFMPEG=ffmpeg-4.1-win64-static.zip
-    SET MEDIAINFO_URL=https://mediaarea.net/download/binary/mediainfo/0.7.98/MediaInfo_CLI_0.7.98_Windows_x64.zip
-    SET MEDIAINFO=MediaInfo_CLI_0.7.98_Windows_x64.zip
+    SET MEDIAINFO_URL=https://mediaarea.net/download/binary/mediainfo/18.12/MediaInfo_CLI_18.12_Windows_x64.zip
+    SET MEDIAINFO=MediaInfo_CLI_18.12_Windows_x64.zip
 )
 if ["%ARCH%"]==["32"] (
     SET BINARCH=x86
