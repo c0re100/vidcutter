@@ -17,12 +17,13 @@ a = Analysis(['../../vidcutter/__main__.py'],
              datas=[
                  ('../../vidcutter/__init__.py', '.'),
                  ('../../bin/ffmpeg', 'bin'),
-                 ('../../bin/mediainfo', 'bin')
+                 ('../../bin/mediainfo', 'bin'),
+                 ('../../bin/gifski', 'bin')
              ],
              hiddenimports=[],
              hookspath=[],
              runtime_hooks=[],
-             excludes=['numpy'],
+             excludes=['numpy', 'PyQt5.QtWebEngineWidgets', 'PyQt5.QtMultimedia', 'PyQt5.QtBluetooth', 'PyQt5.QtDesigner', 'PyQt5.QtHelp', 'PyQt5.QtLocation', 'PyQt5.QtMultimediaWidgets', 'PyQt5.QtNetworkAuth', 'PyQt5.QtNfc', 'PyQt5.QtPositioning', 'PyQt5.QtPositioningQuick', 'PyQt5.QtQml', 'PyQt5.QtQuick', 'PyQt5.QtQuickControls2', 'PyQt5.QtQuickParticles', 'PyQt5.QtQuickTemplates2', 'PyQt5.QtQuickTest', 'PyQt5.QtQuickWidgets', 'PyQt5.QtSensors', 'PyQt5.QtSerialPort', 'PyQt5.QtSql', 'PyQt5.QtTest', 'PyQt5.QtWebChannel', 'PyQt5.QtWebEngine', 'PyQt5.QtWebEngineCore', 'PyQt5.QtWebSockets', 'PyQt5.QtXml', 'PyQt5.Qt5XmlPatterns'],
              win_no_prefer_redirects=False,
              win_private_assemblies=False,
              cipher=block_cipher)
@@ -31,7 +32,7 @@ pyz = PYZ(a.pure, a.zipped_data,
 exe = EXE(pyz,
           a.scripts,
           exclude_binaries=True,
-          name='VidCutter',
+          name='VidCutter_HuskyVer',
           debug=False,
           strip=True,
           upx=False,
@@ -42,8 +43,8 @@ coll = COLLECT(exe,
                a.datas,
                strip=True,
                upx=False,
-               name='VidCutter')
+               name='VidCutter_HuskyVer')
 app = BUNDLE(coll,
-             name='VidCutter.app',
+             name='VidCutter_HuskyVer.app',
              icon='../../data/icons/vidcutter.icns',
              bundle_identifier='com.ozmartians.vidcutter')
