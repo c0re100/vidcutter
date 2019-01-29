@@ -240,7 +240,7 @@ class VideoService(QObject):
         png_dir = file_dir + 'tmp' + str(timestamp) + '/'
         gif_dir = file_dir + QFileInfo(output).fileName().replace(".mp4", ".gif")
         cut_arg = '-ss {0} -i "{1}" -t {2} -vf "fps=24,scale=640:-1" "{3}"'
-        merged_arg = '{0} --output "{1}"'
+        merged_arg = '{0} --fps 24 --output "{1}"'
         os.mkdir(png_dir)
         self.cmdExec(self.backend,
                      cut_arg.format(frametime, source, duration, png_dir + png_frame))
