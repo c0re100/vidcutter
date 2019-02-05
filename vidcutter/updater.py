@@ -61,7 +61,7 @@ class Updater(QWidget):
         reply.deleteLater()
         latest = parse_version(jsonobj.get('tag_name'))
         current = parse_version(qApp.applicationVersion())
-        self.mbox.show_result(latest, current)
+        self.mbox.show_result(current, current)
 
     def check(self) -> None:
         self.mbox = UpdaterMsgBox(self, theme=self.parent.theme)
