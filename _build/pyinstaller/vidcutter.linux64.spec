@@ -15,10 +15,7 @@ a = Analysis(['../../vidcutter/__main__.py'],
              # binaries=[
              #    ('/usr/lib/x86_64-linux-gnu/mesa/libGL.so.1.2.0', '.')
              # ],
-             binaries=[
-                 ('/home/ozmartian/.local/share/Steam/ubuntu12_32/steam-runtime/amd64/lib/x86_64-linux-gnu/' +
-                 'libselinux.so.1', '.')
-             ],
+             binaries=[],
              datas=[
                  ('../../vidcutter/__init__.py', '.'),
                  ('../../vidcutter/libs/mpv.*.so', '.'),
