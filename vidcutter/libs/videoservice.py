@@ -226,12 +226,8 @@ class VideoService(QObject):
 
     def cut(self, source: str, output: str, frametime: str, duration: str, allstreams: bool = True) -> bool:
         self.checkDiskSpace(output)
-        if allstreams:
-            args = '-ss {0} -i "{1}" -t {2} -vcodec libx264 -an -sn -crf 18 -pix_fmt yuv420p ' + \
-                   '-filter_complex "scale=iw*min(1\,min(1280/iw\,720/ih)):-2" -map 0 -v 16 -y "{3}"'
-        else:
-            args = '-ss {0} -i "{1}" -t {2} -vcodec libx264 -an -sn -crf 18 -pix_fmt yuv420p ' + \
-                   '-filter_complex "scale=iw*min(1\,min(1280/iw\,720/ih)):-2" -v 16 -y "{3}"'
+        args = '-y -ss {0} -i "{1}" -t {2} -c:v libx264 -an -crf 18 -pix_fmt yuv420p ' + \
+            '-vf "scale=iw*min(1\,min(1280/iw\,720/ih)):-2" "{3}"'
 
         timestamp = int(time.time())
         file_path = QDir.fromNativeSeparators(output)
@@ -239,14 +235,16 @@ class VideoService(QObject):
         png_frame = QFileInfo(output).fileName().replace(".mp4", "%3d.png")
         png_dir = file_dir + 'tmp' + str(timestamp) + '/'
         gif_dir = file_dir + QFileInfo(output).fileName().replace(".mp4", ".gif")
-        cut_arg = '-ss {0} -i "{1}" -t {2} -vf "fps=24,scale=640:-1" "{3}"'
+        cut_arg = '-ss {0} -i "{1}" -t {2} -vf "fps=24,scale=iw*min(1\,min(640/iw\,360/ih)):-2" "{3}"'
         merged_arg = '{0} --fps 24 --output "{1}"'
+
         os.mkdir(png_dir)
         self.cmdExec(self.backend,
                      cut_arg.format(frametime, source, duration, png_dir + png_frame))
         self.cmdExec(self.gifski,
                      merged_arg.format(png_dir + '*.png', gif_dir))
         shutil.rmtree(png_dir)
+
         return self.cmdExec(self.backend, args.format(frametime, source, duration, QDir.fromNativeSeparators(output)))
 
     def join(self, inputs: list, output: str, allstreams: bool = True) -> bool:
