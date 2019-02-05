@@ -271,12 +271,30 @@ class GeneralPage(QWidget):
         nativeDialogsLabel.setObjectName('nativedialogslabel')
         nativeDialogsLabel.setTextFormat(Qt.RichText)
         nativeDialogsLabel.setWordWrap(True)
+        gifOnlyCheckbox = QCheckBox('Output GIF only', self)
+        gifOnlyCheckbox.setToolTip('Output GIF only dialogs')
+        gifOnlyCheckbox.setCursor(Qt.PointingHandCursor)
+        gifOnlyCheckbox.setChecked(self.parent.parent.gifOnly)
+        gifOnlyCheckbox.stateChanged.connect(self.setGifOnly)
+        gifOnlyLabel = QLabel('''
+            <b>ON:</b> Output high quality GIF file only
+            <br/>
+            <b>OFF:</b> Output high quality GIF and mp4 file
+            <br/><br/>
+            <b>NOTE:</b> Default: OFF
+        ''', self)
+        gifOnlyLabel.setObjectName('nativedialogslabel')
+        gifOnlyLabel.setTextFormat(Qt.RichText)
+        gifOnlyLabel.setWordWrap(True)
         generalLayout = QVBoxLayout()
         generalLayout.addWidget(keepClipsCheckbox)
         generalLayout.addWidget(keepClipsLabel)
         generalLayout.addWidget(SettingsDialog.lineSeparator())
         generalLayout.addWidget(nativeDialogsCheckbox)
         generalLayout.addWidget(nativeDialogsLabel)
+        generalLayout.addWidget(SettingsDialog.lineSeparator())
+        generalLayout.addWidget(gifOnlyCheckbox)
+        generalLayout.addWidget(gifOnlyLabel)
         generalGroup = QGroupBox('General')
         generalGroup.setLayout(generalLayout)
         seek1SpinBox = QDoubleSpinBox(self)
@@ -340,6 +358,11 @@ class GeneralPage(QWidget):
     def setNativeDialogs(self, state: int) -> None:
         self.parent.parent.saveSetting('nativeDialogs', state == Qt.Checked)
         self.parent.parent.nativeDialogs = (state == Qt.Checked)
+
+    @pyqtSlot(int)
+    def setGifOnly(self, state: int) -> None:
+         self.parent.parent.saveSetting('gifOnly', state == Qt.Checked)
+         self.parent.parent.gifOnly = (state == Qt.Checked)
 
     def setSpinnerValue(self, box_id: int, val: float) -> None:
         self.parent.settings.setValue('level{0}Seek'.format(box_id), val)

@@ -224,7 +224,7 @@ class VideoService(QObject):
         acodec = re.search(r'Stream.*Audio:\s(\w+)', result).group(1)
         return vcodec, acodec
 
-    def cut(self, source: str, output: str, frametime: str, duration: str, allstreams: bool = True) -> bool:
+    def cut(self, source: str, output: str, frametime: str, duration: str, allstreams: bool = True, gifonly: bool = False) -> bool:
         self.checkDiskSpace(output)
         args = '-y -ss {0} -i "{1}" -t {2} -c:v libx264 -an -crf 18 -pix_fmt yuv420p ' + \
             '-vf "scale=iw*min(1\,min(1280/iw\,720/ih)):-2" -preset fast "{3}"'
@@ -245,7 +245,10 @@ class VideoService(QObject):
                      merged_arg.format(png_dir + '*.png', gif_dir))
         shutil.rmtree(png_dir)
 
-        return self.cmdExec(self.backend, args.format(frametime, source, duration, QDir.fromNativeSeparators(output)))
+        if not gifonly:
+            self.cmdExec(self.backend, args.format(frametime, source, duration, QDir.fromNativeSeparators(output)))
+
+        return True
 
     def join(self, inputs: list, output: str, allstreams: bool = True) -> bool:
         self.checkDiskSpace(output)

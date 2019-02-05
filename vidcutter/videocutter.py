@@ -108,10 +108,11 @@ class VideoCutter(QWidget):
         self.keepRatio = self.settings.value('aspectRatio', 'keep', type=str) == 'keep'
         self.keepClips = self.settings.value('keepClips', 'off', type=str) in {'on', 'true'}
         self.nativeDialogs = self.settings.value('nativeDialogs', 'on', type=str) in {'on', 'true'}
+        self.gifOnly = self.settings.value('gifOnly', 'off', type=str) in {'on', 'true'}
         self.timelineThumbs = self.settings.value('timelineThumbs', 'on', type=str) in {'on', 'true'}
         self.showConsole = self.settings.value('showConsole', 'off', type=str) in {'on', 'true'}
-        self.level1Seek = self.settings.value('level1Seek', 2, type=float)
-        self.level2Seek = self.settings.value('level2Seek', 5, type=float)
+        self.level1Seek = self.settings.value('level1Seek', 1, type=float)
+        self.level2Seek = self.settings.value('level2Seek', 1, type=float)
 
         self.lastFolder = self.settings.value('lastFolder', QDir.homePath(), type=str)
         if not os.path.exists(self.lastFolder):
@@ -1113,12 +1114,12 @@ class VideoCutter(QWidget):
                     filelist.append(filename)
                     self.videoService.cut(source='%s%s' % (source_file, source_ext), output=filename,
                                           frametime=clip[0].toString(self.timeformat), duration=duration,
-                                          allstreams=True)
+                                          allstreams=True, gifonly=self.gifOnly)
                     if QFile(filename).size() < 1000:
                         self.logger.info('cut resulted in 0 length file, trying again without all stream mapping')
                         self.videoService.cut(source='%s%s' % (source_file, source_ext), output=filename,
                                               frametime=clip[0].toString(self.timeformat), duration=duration,
-                                              allstreams=False)
+                                              allstreams=False, gifonly=self.gifOnly)
 
             self.progress.updateProgress(self.progress.value() + 1, 'Complete')
             QTimer.singleShot(1000, self.progress.close)
