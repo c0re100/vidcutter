@@ -226,7 +226,7 @@ class VideoService(QObject):
 
     def cut(self, source: str, output: str, frametime: str, duration: str, allstreams: bool = True, gifonly: bool = False) -> bool:
         self.checkDiskSpace(output)
-        args = '-y -ss {0} -i "{1}" -t {2} -c:v libx264 -an -crf 18 -pix_fmt yuv420p ' + \
+        args = '-y -ss {0} -i "{1}" -t {2} -c:v libx264 -an -crf 22 -pix_fmt yuv420p ' + \
             '-vf "scale=iw*min(1\,min(1280/iw\,720/ih)):-2" -preset fast "{3}"'
 
         timestamp = int(time.time())
