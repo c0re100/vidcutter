@@ -108,7 +108,8 @@ class VideoCutter(QWidget):
         self.keepRatio = self.settings.value('aspectRatio', 'keep', type=str) == 'keep'
         self.keepClips = self.settings.value('keepClips', 'off', type=str) in {'on', 'true'}
         self.nativeDialogs = self.settings.value('nativeDialogs', 'on', type=str) in {'on', 'true'}
-        self.gifOnly = self.settings.value('gifOnly', 'off', type=str) in {'on', 'true'}
+        self.gifOutput = self.settings.value('gifOutput', 'on', type=str) in {'on', 'true'}
+        self.mp4Output = self.settings.value('mp4Output', 'on', type=str) in {'on', 'true'}
         self.timelineThumbs = self.settings.value('timelineThumbs', 'on', type=str) in {'on', 'true'}
         self.showConsole = self.settings.value('showConsole', 'off', type=str) in {'on', 'true'}
         self.level1Seek = self.settings.value('level1Seek', 1, type=float)
@@ -1114,12 +1115,12 @@ class VideoCutter(QWidget):
                     filelist.append(filename)
                     self.videoService.cut(source='%s%s' % (source_file, source_ext), output=filename,
                                           frametime=clip[0].toString(self.timeformat), duration=duration,
-                                          allstreams=True, gifonly=self.gifOnly)
+                                          allstreams=True, gifOutput=self.gifOutput)
                     if QFile(filename).size() < 1000:
                         self.logger.info('cut resulted in 0 length file, trying again without all stream mapping')
                         self.videoService.cut(source='%s%s' % (source_file, source_ext), output=filename,
                                               frametime=clip[0].toString(self.timeformat), duration=duration,
-                                              allstreams=False, gifonly=self.gifOnly)
+                                              allstreams=False, gifOutput=self.gifOutput)
 
             self.progress.updateProgress(self.progress.value() + 1, 'Complete')
             QTimer.singleShot(1000, self.progress.close)

@@ -271,21 +271,36 @@ class GeneralPage(QWidget):
         nativeDialogsLabel.setObjectName('nativedialogslabel')
         nativeDialogsLabel.setTextFormat(Qt.RichText)
         nativeDialogsLabel.setWordWrap(True)
-        gifOnlyCheckbox = QCheckBox('Output GIF only', self)
-        gifOnlyCheckbox.setToolTip('Output GIF only dialogs')
-        gifOnlyCheckbox.setCursor(Qt.PointingHandCursor)
-        gifOnlyCheckbox.setChecked(self.parent.parent.gifOnly)
-        gifOnlyCheckbox.stateChanged.connect(self.setGifOnly)
-        gifOnlyLabel = QLabel('''
-            <b>ON:</b> Output high quality GIF file only
+        gifOutputCheckbox = QCheckBox('Output GIF only', self)
+        gifOutputCheckbox.setToolTip('Output GIF only dialogs')
+        gifOutputCheckbox.setCursor(Qt.PointingHandCursor)
+        gifOutputCheckbox.setChecked(self.parent.parent.gifOutput)
+        gifOutputCheckbox.stateChanged.connect(self.setGifOutput)
+        gifOutputLabel = QLabel('''
+            <b>ON:</b> Output high quality GIF file
             <br/>
-            <b>OFF:</b> Output high quality GIF and mp4 file
+            <b>OFF:</b> Don't output high quality GIF
             <br/><br/>
-            <b>NOTE:</b> Default: OFF
+            <b>NOTE:</b> Default: ON
         ''', self)
-        gifOnlyLabel.setObjectName('nativedialogslabel')
-        gifOnlyLabel.setTextFormat(Qt.RichText)
-        gifOnlyLabel.setWordWrap(True)
+        gifOutputLabel.setObjectName('nativedialogslabel')
+        gifOutputLabel.setTextFormat(Qt.RichText)
+        gifOutputLabel.setWordWrap(True)
+        mp4OutputCheckbox = QCheckBox('Output MP4', self)
+        mp4OutputCheckbox.setToolTip('Output GIF dialogs')
+        mp4OutputCheckbox.setCursor(Qt.PointingHandCursor)
+        mp4OutputCheckbox.setChecked(self.parent.parent.mp4Output)
+        mp4OutputCheckbox.stateChanged.connect(self.setMP4Output)
+        mp4OutputLabel = QLabel('''
+            <b>ON:</b> Output high quality MP4 file
+            <br/>
+            <b>OFF:</b> Don't output high quality MP4
+            <br/><br/>
+            <b>NOTE:</b> Default: ON
+        ''', self)
+        mp4OutputLabel.setObjectName('nativedialogslabel')
+        mp4OutputLabel.setTextFormat(Qt.RichText)
+        mp4OutputLabel.setWordWrap(True)
         generalLayout = QVBoxLayout()
         generalLayout.addWidget(keepClipsCheckbox)
         generalLayout.addWidget(keepClipsLabel)
@@ -293,8 +308,11 @@ class GeneralPage(QWidget):
         generalLayout.addWidget(nativeDialogsCheckbox)
         generalLayout.addWidget(nativeDialogsLabel)
         generalLayout.addWidget(SettingsDialog.lineSeparator())
-        generalLayout.addWidget(gifOnlyCheckbox)
-        generalLayout.addWidget(gifOnlyLabel)
+        generalLayout.addWidget(gifOutputCheckbox)
+        generalLayout.addWidget(gifOutputLabel)
+        generalLayout.addWidget(SettingsDialog.lineSeparator())
+        generalLayout.addWidget(mp4OutputCheckbox)
+        generalLayout.addWidget(mp4OutputLabel)
         generalGroup = QGroupBox('General')
         generalGroup.setLayout(generalLayout)
         seek1SpinBox = QDoubleSpinBox(self)
@@ -360,9 +378,14 @@ class GeneralPage(QWidget):
         self.parent.parent.nativeDialogs = (state == Qt.Checked)
 
     @pyqtSlot(int)
-    def setGifOnly(self, state: int) -> None:
-         self.parent.parent.saveSetting('gifOnly', state == Qt.Checked)
-         self.parent.parent.gifOnly = (state == Qt.Checked)
+    def setGifOutput(self, state: int) -> None:
+         self.parent.parent.saveSetting('gifOutput', state == Qt.Checked)
+         self.parent.parent.gifOutput = (state == Qt.Checked)
+
+    @pyqtSlot(int)
+    def setMP4Output(self, state: int) -> None:
+         self.parent.parent.saveSetting('mp4Output', state == Qt.Checked)
+         self.parent.parent.mp4Output = (state == Qt.Checked)
 
     def setSpinnerValue(self, box_id: int, val: float) -> None:
         self.parent.settings.setValue('level{0}Seek'.format(box_id), val)
