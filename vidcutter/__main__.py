@@ -272,7 +272,7 @@ def main():
         QApplication.setStyle('Fusion')
 
     app = QApplication(sys.argv)
-    app.setApplicationName('VidCutter Husky Ver.')
+    app.setApplicationName('VidCutter Husky Version')
     app.setApplicationVersion(MainWindow.get_version())
     app.setOrganizationDomain('ozmartians.com')
     app.setQuitOnLastWindowClosed(True)
