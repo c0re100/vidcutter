@@ -784,17 +784,20 @@ class VideoCutter(QWidget):
                                      'Cannot save project file at %s:\n\n%s' % (project_save, file.errorString()))
                 return
             qApp.setOverrideCursor(Qt.WaitCursor)
+            out = QTextStream(file)
+            out.setCodec("UTF-8")
             if ptype == 'VidCutter Project (*.vcp)':
                 # noinspection PyUnresolvedReferences
-                QTextStream(file) << '%s\n' % self.currentMedia
+                out << '%s\n' % self.currentMedia
             for clip in self.clipTimes:
                 start_time = timedelta(hours=clip[0].hour(), minutes=clip[0].minute(), seconds=clip[0].second(),
                                        milliseconds=clip[0].msec())
                 stop_time = timedelta(hours=clip[1].hour(), minutes=clip[1].minute(), seconds=clip[1].second(),
                                       milliseconds=clip[1].msec())
                 # noinspection PyUnresolvedReferences
-                QTextStream(file) << '%s\t%s\t%d\n' % (self.delta2String(start_time), self.delta2String(stop_time), 0)
+                out << '%s\t%s\t%d\n' % (self.delta2String(start_time), self.delta2String(stop_time), 0)
             qApp.restoreOverrideCursor()
+            file.close()
             self.showText('Project file saved')
 
     def loadMedia(self, filename: str) -> None:
