@@ -1115,12 +1115,12 @@ class VideoCutter(QWidget):
                     filelist.append(filename)
                     self.videoService.cut(source='%s%s' % (source_file, source_ext), output=filename,
                                           frametime=clip[0].toString(self.timeformat), duration=duration,
-                                          allstreams=True, gifOutput=self.gifOutput)
+                                          allstreams=True, gifOutput=self.gifOutput, mp4Output=self.mp4Output)
                     if QFile(filename).size() < 1000:
                         self.logger.info('cut resulted in 0 length file, trying again without all stream mapping')
                         self.videoService.cut(source='%s%s' % (source_file, source_ext), output=filename,
                                               frametime=clip[0].toString(self.timeformat), duration=duration,
-                                              allstreams=False, gifOutput=self.gifOutput)
+                                              allstreams=False, gifOutput=self.gifOutput, mp4Output=self.mp4Output)
 
             self.progress.updateProgress(self.progress.value() + 1, 'Complete')
             QTimer.singleShot(1000, self.progress.close)
