@@ -1,4 +1,4 @@
-[![Latest Release](http://tvlinker.ozmartians.com/images/button-latest-release.png)](https://ci.appveyor.com/project/Tydus/vidcutter/build/artifacts)
+[![Latest Release](http://tvlinker.ozmartians.com/images/button-latest-release.png)](https://ci.appveyor.com/project/c0re100/vidcutter/build/artifacts)
  
 
 ![VidCutter](http://vidcutter.ozmartians.com/vidcutter-banner.png)
@@ -6,7 +6,7 @@
 <a href="http://vidcutter.software.informer.com/" target="_blank"><img border="0" src="http://img.informer.com/awards/si-award-clean.png" alt="Software Informer Virus Free award" height="120" width="120" /></a>
 
 <!---[![Build Status](https://travis-ci.org/ozmartian/vidcutter.svg)](https://travis-ci.org/ozmartian/vidcutter)--->
-[![Build Status](https://ci.appveyor.com/api/projects/status/p4ralebu096lkft1?svg=true)](https://ci.appveyor.com/project/Tydus/vidcutter)
+[![Build Status](https://ci.appveyor.com/api/projects/status/p4ralebu096lkft1?svg=true)](https://ci.appveyor.com/project/c0re100/vidcutter)
 <!---[![Codacy Badge](https://api.codacy.com/project/badge/Grade/425a00c7c6af446ba87c6152567d9f7e)](https://www.codacy.com/app/ozmartian/vidcutter)--->
 
 # Husky Version
@@ -14,7 +14,7 @@ For making "gif" animations for Twitter, Telegram, etc.
 
 ### Windows Users
 
-Native installers for Windows is available on the <a href="https://ci.appveyor.com/project/Tydus/vidcutter/build/artifacts">Appveyor</a>.
+Native installers for Windows is available on the <a href="https://ci.appveyor.com/project/c0re100/vidcutter/build/artifacts">Appveyor</a>.
 
 ### Linux Users
 

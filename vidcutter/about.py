@@ -75,7 +75,7 @@ class About(QDialog):
                             <td style="text-align:right;font-size:10pt;font-weight:500;color:%s;">version:</td>
                             <td>
                                 <span style="font-size:18px;font-weight:400;">%s</span>
-                                &nbsp;<span style="font-size:10pt;margin-left:5px;">(Husky Ver.)</span><!--%s-->
+                                &nbsp;<span style="font-size:10pt;margin-left:5px;">(Husky Version)</span><!--%s-->
                             </td>
                         </tr>
                         <tr valign="bottom">
@@ -172,12 +172,12 @@ class AboutTab(BaseTab):
                 <b>SIP:</b> %s
             </p> 
             <p style="font-size:13px;">
-                Copyright &copy; %s <a href="mailto:pete@ozmartians.com">Pete Alexandrou</a> <a href="https://github.com/Tydus">Tydus</a>
+                Copyright &copy; %s <a href="mailto:pete@ozmartians.com">Pete Alexandrou</a> <a href="https://github.com/Tydus">Tydus</a> <a href="https://github.com/c0re100">c0re100</a>
                 <br/>
-                Github: <a href="https://github.com/Tydus/vidcutter">https://github.com/Tydus/vidcutter</a>
+                Github: <a href="https://github.com/c0re100/vidcutter">https://github.com/c0re100/vidcutter</a>
             </p>
             <p style="font-size:13px;">
-                Found a bug? You can <a href="https://github.com/Tydus/vidcutter/issues">REPORT IT HERE</a>.
+                Found a bug? You can <a href="https://github.com/c0re100/vidcutter/issues">REPORT IT HERE</a>.
             </p>
             <p style="font-size:11px; margin-top:15px;">
                 This program is free software; you can redistribute it and/or
