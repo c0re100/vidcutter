@@ -10,7 +10,7 @@
 <!---[![Codacy Badge](https://api.codacy.com/project/badge/Grade/425a00c7c6af446ba87c6152567d9f7e)](https://www.codacy.com/app/ozmartian/vidcutter)--->
 
 # Husky Version
-For making "gif" animations for Twitter, Telegram, etc.
+For making "gif" animations or video sticker for Telegram, etc.
 
 ### Windows Users
 
