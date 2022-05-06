@@ -12,12 +12,12 @@ if [%1]==[] (
 
 if ["%ARCH%"]==["64"] (
     SET BINARCH=x64
-    SET FFMPEG_URL=https://ffmpeg.zeranoe.com/builds/win64/static/ffmpeg-latest-win64-static.zip
-    SET FFMPEG=ffmpeg-latest-win64-static.zip
-    SET MEDIAINFO_URL=https://mediaarea.net/download/binary/mediainfo/21.03/MediaInfo_CLI_21.03_Windows_x64.zip
-    SET MEDIAINFO=MediaInfo_CLI_21.03_Windows_x64.zip
-    SET GIFSKI_URL=https://gif.ski/gifski-1.4.0.zip
-    SET GIFSKI=gifski-1.4.0.zip
+    SET FFMPEG_URL=https://github.com/BtbN/FFmpeg-Builds/releases/download/latest/ffmpeg-n4.4-latest-win64-gpl-4.4.zip
+    SET FFMPEG=ffmpeg-n4.4-latest-win64-gpl-4.4.zip
+    SET MEDIAINFO_URL=https://mediaarea.net/download/binary/mediainfo/22.03/MediaInfo_CLI_22.03_Windows_x64.zip
+    SET MEDIAINFO=MediaInfo_CLI_22.03_Windows_x64.zip
+    SET GIFSKI_URL=https://gif.ski/gifski-1.6.4.zip
+    SET GIFSKI=gifski-1.6.4.zip
 )
 :: if ["%ARCH%"]==["32"] (
 ::    SET BINARCH=x86
@@ -44,7 +44,7 @@ if not exist "temp\%GIFSKI%" ( curl -k -L -fsS -o temp\%GIFSKI% "%GIFSKI_URL%" )
 
 REM ......................extract ffmpeg/mediainfo/gifski to its expected location......................
 cd temp\
-"C:\Program Files\7-Zip\7z.exe" e %FFMPEG% ffmpeg-latest-win64-static/bin/ffmpeg.exe
+"C:\Program Files\7-Zip\7z.exe" e %FFMPEG% ffmpeg-n4.4-latest-win64-gpl-4.4/bin/ffmpeg.exe
 "C:\Program Files\7-Zip\7z.exe" e %MEDIAINFO% MediaInfo.exe
 "C:\Program Files\7-Zip\7z.exe" e %GIFSKI% win/gifski.exe
 if not exist "..\..\..\bin\" mkdir "..\..\..\bin\"
@@ -58,7 +58,7 @@ C:\Python36\scripts\pyinstaller.exe --clean vidcutter.win%ARCH%.spec
 
 if exist "dist\VidCutter_HuskyVer.exe" (
     REM ......................add metadata to built Windows binary......................
-    .\verpatch.exe dist\VidCutter_HuskyVer.exe /va %APPVER%.2 /pv %APPVER%.2 /s desc "VidCutter Husky Version" /s name "VidCutter Husky Version" /s copyright "(c) 2022 Husky" /s product "VidCutter %BINARCH%" /s company "husky.dev"
+    .\verpatch.exe dist\VidCutter_HuskyVer.exe /va %APPVER%.3 /pv %APPVER%.3 /s desc "VidCutter Husky Version" /s name "VidCutter Husky Version" /s copyright "(c) 2022 Husky" /s product "VidCutter %BINARCH%" /s company "husky.dev"
 
     cd ..\pyinstaller
 )
