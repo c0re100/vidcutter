@@ -301,6 +301,21 @@ class GeneralPage(QWidget):
         mp4OutputLabel.setObjectName('nativedialogslabel')
         mp4OutputLabel.setTextFormat(Qt.RichText)
         mp4OutputLabel.setWordWrap(True)
+        webmOutputCheckbox = QCheckBox('Output WebM', self)
+        webmOutputCheckbox.setToolTip('Output WebM dialogs')
+        webmOutputCheckbox.setCursor(Qt.PointingHandCursor)
+        webmOutputCheckbox.setChecked(self.parent.parent.webmOutput)
+        webmOutputCheckbox.stateChanged.connect(self.setWebMOutput)
+        webmOutputLabel = QLabel('''
+            <b>ON:</b> Output WebM file for telegram animated sticker
+            <br/>
+            <b>OFF:</b> Don't output WebM file
+            <br/><br/>
+            <b>NOTE:</b> Default: ON
+        ''', self)
+        webmOutputLabel.setObjectName('nativedialogslabel')
+        webmOutputLabel.setTextFormat(Qt.RichText)
+        webmOutputLabel.setWordWrap(True)
         generalLayout = QVBoxLayout()
         generalLayout.addWidget(keepClipsCheckbox)
         generalLayout.addWidget(keepClipsLabel)
@@ -313,6 +328,9 @@ class GeneralPage(QWidget):
         generalLayout.addWidget(SettingsDialog.lineSeparator())
         generalLayout.addWidget(mp4OutputCheckbox)
         generalLayout.addWidget(mp4OutputLabel)
+        generalLayout.addWidget(SettingsDialog.lineSeparator())
+        generalLayout.addWidget(webmOutputCheckbox)
+        generalLayout.addWidget(webmOutputLabel)
         generalGroup = QGroupBox('General')
         generalGroup.setLayout(generalLayout)
         seek1SpinBox = QDoubleSpinBox(self)
@@ -386,6 +404,11 @@ class GeneralPage(QWidget):
     def setMP4Output(self, state: int) -> None:
          self.parent.parent.saveSetting('mp4Output', state == Qt.Checked)
          self.parent.parent.mp4Output = (state == Qt.Checked)
+
+    @pyqtSlot(int)
+    def setWebMOutput(self, state: int) -> None:
+        self.parent.parent.saveSetting('webmOutput', state == Qt.Checked)
+        self.parent.parent.webmOutput = (state == Qt.Checked)
 
     def setSpinnerValue(self, box_id: int, val: float) -> None:
         self.parent.settings.setValue('level{0}Seek'.format(box_id), val)

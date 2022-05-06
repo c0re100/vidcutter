@@ -110,6 +110,7 @@ class VideoCutter(QWidget):
         self.nativeDialogs = self.settings.value('nativeDialogs', 'on', type=str) in {'on', 'true'}
         self.gifOutput = self.settings.value('gifOutput', 'on', type=str) in {'on', 'true'}
         self.mp4Output = self.settings.value('mp4Output', 'on', type=str) in {'on', 'true'}
+        self.webmOutput = self.settings.value('webmOutput', 'on', type=str) in {'on', 'true'}
         self.timelineThumbs = self.settings.value('timelineThumbs', 'on', type=str) in {'on', 'true'}
         self.showConsole = self.settings.value('showConsole', 'off', type=str) in {'on', 'true'}
         self.level1Seek = self.settings.value('level1Seek', 1, type=float)
@@ -1118,12 +1119,12 @@ class VideoCutter(QWidget):
                     filelist.append(filename)
                     self.videoService.cut(source='%s%s' % (source_file, source_ext), output=filename,
                                           frametime=clip[0].toString(self.timeformat), duration=duration,
-                                          allstreams=True, gifOutput=self.gifOutput, mp4Output=self.mp4Output)
+                                          allstreams=True, gifOutput=self.gifOutput, mp4Output=self.mp4Output, webmOutput=self.webmOutput)
                     if QFile(filename).size() < 1000:
                         self.logger.info('cut resulted in 0 length file, trying again without all stream mapping')
                         self.videoService.cut(source='%s%s' % (source_file, source_ext), output=filename,
                                               frametime=clip[0].toString(self.timeformat), duration=duration,
-                                              allstreams=False, gifOutput=self.gifOutput, mp4Output=self.mp4Output)
+                                              allstreams=False, gifOutput=self.gifOutput, mp4Output=self.mp4Output, webmOutput=self.webmOutput)
 
             self.progress.updateProgress(self.progress.value() + 1, 'Complete')
             QTimer.singleShot(1000, self.progress.close)

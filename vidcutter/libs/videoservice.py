@@ -224,7 +224,7 @@ class VideoService(QObject):
         acodec = re.search(r'Stream.*Audio:\s(\w+)', result).group(1)
         return vcodec, acodec
 
-    def cut(self, source: str, output: str, frametime: str, duration: str, allstreams: bool = True, gifOutput: bool = False, mp4Output: bool = False) -> bool:
+    def cut(self, source: str, output: str, frametime: str, duration: str, allstreams: bool = True, gifOutput: bool = False, mp4Output: bool = False, webmOutput: bool = False) -> bool:
         self.checkDiskSpace(output)
         args = '-y -ss {0} -i "{1}" -t {2} -c:v libx264 -an -sn -map_chapters -1 -map_metadata -1 -crf 22 -pix_fmt yuv420p ' + \
             '-vf "scale=iw*min(1\,min(1280/iw\,720/ih)):-2" -preset slow "{3}"'
@@ -250,7 +250,10 @@ class VideoService(QObject):
 
         if mp4Output:
             self.cmdExec(self.backend, args.format(frametime, source, duration, QDir.fromNativeSeparators(output)))
-            self.cmdExec(self.backend, webmArgs.format(frametime, source, duration, QDir.fromNativeSeparators(output.replace(".mp4", ".webm"))))
+
+        if webmOutput:
+            self.cmdExec(self.backend, webmArgs.format(frametime, source, duration,
+                                                       QDir.fromNativeSeparators(output.replace(".mp4", ".webm"))))
 
         return True
 
