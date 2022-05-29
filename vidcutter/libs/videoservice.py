@@ -227,9 +227,9 @@ class VideoService(QObject):
     def cut(self, source: str, output: str, frametime: str, duration: str, allstreams: bool = True, gifOutput: bool = False, mp4Output: bool = False, webmOutput: bool = False) -> bool:
         self.checkDiskSpace(output)
         args = '-y -ss {0} -i "{1}" -t {2} -c:v libx264 -an -sn -map_chapters -1 -map_metadata -1 -crf 22 -pix_fmt yuv420p ' + \
-            '-vf "scale=iw*min(1\,min(1280/iw\,720/ih)):-2" -preset slow "{3}"'
+            '-vf "scale=iw*min(1\,min(1280/iw\,720/ih)):-2" -maxrate 10M -bufsize 10M -preset slow "{3}"'
         webmArgs = '-y -ss {0} -i "{1}" -t {2} -c:v libvpx-vp9 -an -sn -map_chapters -1 -map_metadata -1 -crf 22 -pix_fmt yuva420p ' + \
-            '-vf "scale=iw*min(1\,min(512/iw\,512/ih)):-2" -preset slow "{3}"'
+            '-vf "scale=iw*min(1\,min(512/iw\,512/ih)):-2" -maxrate 10M -bufsize 10M -preset slow "{3}"'
 
         timestamp = int(time.time())
         file_path = QDir.fromNativeSeparators(output)
