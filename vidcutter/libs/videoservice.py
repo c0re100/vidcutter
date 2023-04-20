@@ -228,8 +228,8 @@ class VideoService(QObject):
         self.checkDiskSpace(output)
         args = '-y -ss {0} -i "{1}" -t {2} -c:v libx264 -an -sn -map_chapters -1 -map_metadata -1 -crf 23 -pix_fmt yuv420p ' + \
             '-vf "scale=iw*min(1\,min(1280/iw\,720/ih)):-2" -maxrate 8M -bufsize 8M -preset slow "{3}"'
-        webmArgs = '-y -ss {0} -i "{1}" -t {2} -c:v libvpx-vp9 -an -sn -map_chapters -1 -map_metadata -1 -crf 23 -pix_fmt yuva420p ' + \
-            '-vf "scale=iw*min(1\,min(512/iw\,512/ih)):-2" -maxrate 1M -bufsize 1M -b:v 1M -preset slow "{3}"'
+        webmArgs = '-y -ss {0} -i "{1}" -t {2} -c:v libvpx-vp9 -an -sn -map_chapters -1 -map_metadata -1 -crf 31 -pix_fmt yuva420p ' + \
+            '-vf "scale=iw*min(1\,min(512/iw\,512/ih)):-2" -maxrate 256K -bufsize 256K -b:v 256K -preset slow "{3}"'
 
         timestamp = int(time.time())
         file_path = QDir.fromNativeSeparators(output)
