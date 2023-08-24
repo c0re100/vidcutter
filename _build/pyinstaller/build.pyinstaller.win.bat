@@ -14,10 +14,10 @@ if ["%ARCH%"]==["64"] (
     SET BINARCH=x64
     SET FFMPEG_URL=https://github.com/BtbN/FFmpeg-Builds/releases/download/latest/ffmpeg-n4.4-latest-win64-gpl-4.4.zip
     SET FFMPEG=ffmpeg-n4.4-latest-win64-gpl-4.4.zip
-    SET MEDIAINFO_URL=https://mediaarea.net/download/binary/mediainfo/22.03/MediaInfo_CLI_22.03_Windows_x64.zip
-    SET MEDIAINFO=MediaInfo_CLI_22.03_Windows_x64.zip
-    SET GIFSKI_URL=https://gif.ski/gifski-1.6.4.zip
-    SET GIFSKI=gifski-1.6.4.zip
+    SET MEDIAINFO_URL=https://mediaarea.net/download/binary/mediainfo/23.07/MediaInfo_CLI_23.07_Windows_x64.zip
+    SET MEDIAINFO=MediaInfo_CLI_23.07_Windows_x64.zip
+    SET GIFSKI_URL=https://gif.ski/gifski-1.11.0.zip
+    SET GIFSKI=gifski-1.11.0.zip
 )
 :: if ["%ARCH%"]==["32"] (
 ::    SET BINARCH=x86
@@ -58,7 +58,7 @@ C:\Python36\scripts\pyinstaller.exe --clean vidcutter.win%ARCH%.spec
 
 if exist "dist\VidCutter_HuskyVer.exe" (
     REM ......................add metadata to built Windows binary......................
-    .\verpatch.exe dist\VidCutter_HuskyVer.exe /va %APPVER%.4 /pv %APPVER%.4 /s desc "VidCutter Husky Version" /s name "VidCutter Husky Version" /s copyright "(c) 2022 Husky" /s product "VidCutter %BINARCH%" /s company "husky.dev"
+    .\verpatch.exe dist\VidCutter_HuskyVer.exe /va %APPVER%.5 /pv %APPVER%.5 /s desc "VidCutter Husky Version" /s name "VidCutter Husky Version" /s copyright "(c) 2022 Husky" /s product "VidCutter %BINARCH%" /s company "husky.dev"
 
     cd ..\pyinstaller
 )
