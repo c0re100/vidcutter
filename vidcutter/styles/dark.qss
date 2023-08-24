@@ -318,6 +318,20 @@ QPushButton:pressed#settingsButton {
     border-image: url(:/images/dark/settings-active.png);
 }
 
+QPushButton#screenshotButton {
+    border-image: url(:/images/dark/screenshot.png);
+    width: 33px;
+    height: 32px;
+}
+
+QPushButton:hover#screenshotButton {
+    border-image: url(:/images/dark/screenshot.png);
+}
+
+QPushButton:pressed#screenshotButton {
+    border-image: url(:/images/dark/screenshot.png);
+}
+
 QPushButton#menuButton {
     border-image: url(:/images/dark/menu.png);
     width: 33px;
@@ -337,7 +351,7 @@ QPushButton::menu-indicator#menuButton, #clipindextools QPushButton::menu-indica
 }
 
 QPushButton#thumbnailsButton, QPushButton#osdButton, QPushButton#consoleButton,
-QPushButton#muteButton, QPushButton#settingsButton, QPushButton#menuButton, QPushButton#fullscreenButton {
+QPushButton#muteButton, QPushButton#settingsButton, QPushButton#screenshotButton, QPushButton#menuButton, QPushButton#fullscreenButton {
     background-color: transparent;
     border: none;
     outline: none;

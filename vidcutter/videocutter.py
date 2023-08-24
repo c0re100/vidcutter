@@ -291,6 +291,12 @@ class VideoCutter(QWidget):
         self.settingsButton.setFixedSize(QSize(33, 32))
 
         # noinspection PyArgumentList
+        self.screenshotButton = QPushButton(self, toolTip='Screenshot', cursor=Qt.PointingHandCursor, flat=True,
+                                          statusTip='Click to screenshot current video frame',
+                                          objectName='screenshotButton', clicked=self.screenshotFrame)
+        self.screenshotButton.setFixedSize(QSize(33, 32))
+
+        # noinspection PyArgumentList
         self.mediainfoButton = QPushButton(self, toolTip='Media information', cursor=Qt.PointingHandCursor, flat=True,
                                            statusTip='Click to view technical information on currently loaded media',
                                            objectName='mediainfoButton', clicked=self.mediaInfo, enabled=False)
@@ -330,6 +336,8 @@ class VideoCutter(QWidget):
         settingsLayout = QHBoxLayout()
         settingsLayout.setSpacing(0)
         settingsLayout.setContentsMargins(0, 0, 0, 0)
+        settingsLayout.addWidget(self.screenshotButton)
+        settingsLayout.addSpacing(5)
         settingsLayout.addWidget(self.settingsButton)
         settingsLayout.addSpacing(5)
         settingsLayout.addWidget(self.mediainfoButton)
@@ -586,6 +594,22 @@ class VideoCutter(QWidget):
         self.runtimeLabel.setText('<div align="right">%s</div>' % runtime)
         self.runtimeLabel.setToolTip('total runtime: %s' % runtime)
         self.runtimeLabel.setStatusTip('total running time: %s' % runtime)
+
+    def screenshotFrame(self):
+        if self.mediaAvailable:
+            source_file, source_ext = os.path.splitext(self.currentMedia)
+
+            args = '-ss {0} -i "{1}" -y -f image2 -vframes 1 "{2}"'
+            startTime = self.delta2QTime(self.seekSlider.value())
+            strTime = startTime.toString(self.timeformat)
+
+            timeFormat = strTime.replace(':', '_').replace('.', '_')
+            output = source_file + '_' + timeFormat + '.png'
+            source_file = '%s%s' % (source_file, source_ext)
+
+            self.videoService.cmdExec(self.videoService.backend,
+                                      args.format(strTime, source_file, QDir.fromNativeSeparators(output)))
+            self.showText('Screenshot saved!')
 
     @pyqtSlot()
     def showSettings(self):
