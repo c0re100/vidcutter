@@ -271,15 +271,15 @@ class GeneralPage(QWidget):
         nativeDialogsLabel.setObjectName('nativedialogslabel')
         nativeDialogsLabel.setTextFormat(Qt.RichText)
         nativeDialogsLabel.setWordWrap(True)
-        gifOutputCheckbox = QCheckBox('Output GIF only', self)
-        gifOutputCheckbox.setToolTip('Output GIF only dialogs')
+        gifOutputCheckbox = QCheckBox('Output GIF', self)
+        gifOutputCheckbox.setToolTip('Output GIF dialogs')
         gifOutputCheckbox.setCursor(Qt.PointingHandCursor)
         gifOutputCheckbox.setChecked(self.parent.parent.gifOutput)
         gifOutputCheckbox.stateChanged.connect(self.setGifOutput)
         gifOutputLabel = QLabel('''
-            <b>ON:</b> Output high quality GIF file
+            <b>ON:</b> Output high quality GIF file and Animated WebP
             <br/>
-            <b>OFF:</b> Don't output high quality GIF
+            <b>OFF:</b> Don't output high quality GIF and Animated WebP
             <br/><br/>
             <b>NOTE:</b> Default: ON
         ''', self)
@@ -287,7 +287,7 @@ class GeneralPage(QWidget):
         gifOutputLabel.setTextFormat(Qt.RichText)
         gifOutputLabel.setWordWrap(True)
         mp4OutputCheckbox = QCheckBox('Output MP4', self)
-        mp4OutputCheckbox.setToolTip('Output GIF dialogs')
+        mp4OutputCheckbox.setToolTip('Output MP4 dialogs')
         mp4OutputCheckbox.setCursor(Qt.PointingHandCursor)
         mp4OutputCheckbox.setChecked(self.parent.parent.mp4Output)
         mp4OutputCheckbox.stateChanged.connect(self.setMP4Output)
