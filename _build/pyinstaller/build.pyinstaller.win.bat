@@ -58,7 +58,7 @@ C:\Python36\scripts\pyinstaller.exe --clean vidcutter.win%ARCH%.spec
 
 if exist "dist\VidCutter_HuskyVer.exe" (
     REM ......................add metadata to built Windows binary......................
-    .\verpatch.exe dist\VidCutter_HuskyVer.exe /va %APPVER%.5 /pv %APPVER%.5 /s desc "VidCutter Husky Version" /s name "VidCutter Husky Version" /s copyright "(c) 2022 Husky" /s product "VidCutter %BINARCH%" /s company "husky.dev"
+    .\verpatch.exe dist\VidCutter_HuskyVer.exe /va %APPVER%.6 /pv %APPVER%.6 /s desc "VidCutter Husky Version" /s name "VidCutter Husky Version" /s copyright "(c) 2024 Husky" /s product "VidCutter %BINARCH%" /s company "husky.dev"
 
     cd ..\pyinstaller
 )
