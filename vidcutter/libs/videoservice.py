@@ -240,7 +240,7 @@ class VideoService(QObject):
         png_dir = file_dir + 'tmp' + str(timestamp) + '/'
         gif_dir = file_dir + QFileInfo(output).fileName().replace(".mp4", ".gif")
         webp_dir = file_dir + QFileInfo(output).fileName().replace(".mp4", ".webp")
-        cut_arg = '-ss {0} -i "{1}" -t {2} -vf "fps=23,scale=iw*min(1\,min(640/iw\,360/ih)):-2" "{3}"'
+        cut_arg = '-ss {0} -i "{1}" -t {2} -vf "fps=23,scale=iw*min(1\,min(640/iw\,360/ih)):-2:flags=lanczos" "{3}"'
         merged_arg = '{0} --fps 23 --output "{1}"'
 
         # Output .gif format
